@@ -1,0 +1,61 @@
+---
+
+- name: install icinga repo
+  yum:
+    name: "https://packages.icinga.com/epel/icinga-rpm-release-7-latest.noarch.rpm"
+    state: installed
+
+- name: install stuff
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - epel-release
+    - httpd
+    - icinga
+    - icinga-gui
+    - nagios-plugins
+    - nagios-plugins-ping
+    - nagios-plugins-disk
+    - nagios-plugins-procs
+    - nagios-plugins-users
+    - nagios-plugins-load
+    - nagios-plugins-ssh
+    - nagios-plugins-swap
+    - nagios-plugins-http
+    - nagios-plugins-dummy
+
+# don't actually do this, this is just for testing
+- name: set SELinux to Permissive
+  selinux:
+    policy: targeted
+    state: permissive
+
+- name: enable httpd
+  systemd:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: enable icinga
+  systemd:
+    name: icinga
+    state: started
+    enabled: yes
+
+- name: allow port 80
+  firewalld:
+    service: http
+    permanent: true
+    state: enabled
+
+- name: copy demo index HTML if no index exists
+  copy:
+    src: index.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0755
+    force: no
+
+...
