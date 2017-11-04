@@ -28,6 +28,7 @@
     - nagios-plugins-swap
     - nagios-plugins-http
     - nagios-plugins-dummy
+    - policycoreutils-python
 
 # don't actually do this, this is just for testing
 - name: set SELinux to Permissive

@@ -23,4 +23,4 @@ This Ansible playbook can be used to install Icinga 1.x on localhost. You are fr
 
 ## Known issues
 
-There are still a bunch of permissions issues. It throws errors whenever you try to do anything in the web UI.
+There are problems if SELinux is in Enforcing mode. This playbook sets SELinux to Permissive mode, which is something you shouldn't do in a production environment.
