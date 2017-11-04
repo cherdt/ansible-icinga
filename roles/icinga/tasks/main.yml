@@ -5,7 +5,7 @@
     name: "https://packages.icinga.com/epel/icinga-rpm-release-7-latest.noarch.rpm"
     state: installed
 
-- name: install stuff
+- name: install icinga and related packages
   yum:
     name: "{{ item }}"
     state: latest
@@ -57,5 +57,14 @@
     group: root
     mode: 0755
     force: no
+
+- name: add apache user to icinga, icingacmd groups
+  user:
+    name: apache
+    groups: icinga,icingacmd
+    append: yes
+  notify:
+  - restart apache
+
 
 ...
