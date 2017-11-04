@@ -15,8 +15,8 @@ Why? Because there are more pieces than you might think.
 
 This Ansible playbook can be used to install Icinga 1.x on localhost. You are free to modify it to do other things of course.
 
-* `git clone whatever`
-* `cd icinga`
+* `git clone https://github.com/cherdt/ansible-icinga.git`
+* `cd ansible-icinga`
 * `ansible-playbook site.yml`
 * `reboot`
 * visit http://icingaadmin:icingaadmin@localhost/icinga/
