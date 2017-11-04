@@ -62,6 +62,14 @@
     mode: 0755
     force: no
 
+- name: change owner of icinga/gui directory
+  file:
+    path: /var/log/icinga/gui
+    state: directory
+    owner: icinga
+    group: icinga
+    recurse: yes
+
 - name: add apache user to icinga, icingacmd groups
   user:
     name: apache
