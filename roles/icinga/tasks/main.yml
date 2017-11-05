@@ -36,6 +36,16 @@
     policy: targeted
     state: permissive
 
+- name: copy custom SELinux policy
+  copy:
+    src: icinga.pp
+    dest: /tmp/icinga.pp
+  register: copypolicy
+
+- name: add custom SELinux policy
+  command: /sbin/semodule -i /tmp/icinga.pp
+  when: copypolicy.changed
+
 - name: enable httpd
   systemd:
     name: httpd
@@ -48,11 +58,15 @@
     state: started
     enabled: yes
 
-- name: allow port 80
+- name: allow ports 22, 80, 443 through host firewall
   firewalld:
-    service: http
+    service: "{{ item }}"
     permanent: true
     state: enabled
+  with_items:
+    - http
+    - https
+    - ssh
 
 - name: copy demo index HTML if no index exists
   copy:
