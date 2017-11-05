@@ -30,11 +30,10 @@
     - nagios-plugins-dummy
     - policycoreutils-python
 
-# don't actually do this, this is just for testing
-- name: set SELinux to Permissive
+- name: set SELinux to Enforcing
   selinux:
     policy: targeted
-    state: permissive
+    state: enforcing
 
 - name: copy custom SELinux policy
   copy:
